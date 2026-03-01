@@ -118,8 +118,9 @@ class CfgVehicles
 		scope=0;
 		displayName="Tablet Tático PNH";
 		descriptionShort="Hub Tático multifunções: Integra Mapa GPS e Sintonia de Rádios via Bluetooth.";
-        // CAMINHOS ATUALIZADOS para procurar os 3D dentro do PNH_Core
-		model="\PNH_Core\Models\Tablet\data\tab2_g.p3d"; 
+        
+        // CAMINHOS CORRIGIDOS para a sua estrutura atual
+		model="\PNH_Core\Models\tab2_g.p3d"; 
 		inventorySlot[]={"Armband"};
 		itemInfo[]={"Clothing","Armband"};
 		animClass="ItemPDA";
@@ -129,8 +130,8 @@ class CfgVehicles
 		attachments[]={"BatteryD"}; // Exige bateria
 		class ClothingTypes
 		{
-			male="\PNH_Core\Models\Tablet\data\tab2_m.p3d";
-			female="\PNH_Core\Models\Tablet\data\tab2_f.p3d";
+			male="\PNH_Core\Models\tab2_m.p3d";
+			female="\PNH_Core\Models\tab2_f.p3d";
 		};
 		class EnergyManager
 		{
@@ -154,12 +155,13 @@ class CfgVehicles
 	{
 		scope=2; // Spawna no jogo
 		hiddenSelections[]={"lcd_1","lcd_2","zbytek"};
-        // TEXTURAS ATUALIZADAS
+        
+        // TEXTURAS CORRIGIDAS para a sua estrutura atual
 		hiddenSelectionsTextures[]=
 		{
-			"PNH_Core\GUI\Textures\tablet.edds",
-			"PNH_Core\GUI\Textures\tablet.edds",
-			"PNH_Core\Models\Tablet\data\textures\tab2_co.paa"
+			"PNH_Core\GUI\textures\tablet.edds",
+			"PNH_Core\GUI\textures\tablet.edds",
+			"PNH_Core\Models\textures\tab2_co.paa"
 		};
 	};
 };
