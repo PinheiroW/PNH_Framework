@@ -39,9 +39,10 @@ class PNH_RpcManager
 
         if (instance && funcName != "")
         {
-            // CORRIGIDO: Chamada direta e mais segura para a engine Enfusion.
-            // Evita criar um objeto Param3 que pode causar falhas em sobrecarga.
-            GetGame().GameScript.CallFunction(instance, funcName, null, ctx, sender, target);
+            // Revertido para CallFunctionParams: Forma correta e exigida pelo motor 
+            // para passar mais de 2 argumentos dinamicamente.
+            Param3<ParamsReadContext, PlayerIdentity, Object> args = new Param3<ParamsReadContext, PlayerIdentity, Object>(ctx, sender, target);
+            GetGame().GameScript.CallFunctionParams(instance, funcName, null, args);
         }
     }
     

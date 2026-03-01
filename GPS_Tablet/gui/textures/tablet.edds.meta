@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{A721CAFE7487DDAE}GPS_Tablet/gui/textures/tablet.edds"
+ Author "terrys_pc"
+ ChangeDate 1634923608
+ Configurations {
+  PAAResourceClass PC {
+   SourceFile "tablet.paa"
+  }
+  PAAResourceClass XBOX_ONE : PC {
+  }
+  PAAResourceClass PS4 : PC {
+  }
+  PAAResourceClass LINUX : PC {
+  }
+ }
+}
