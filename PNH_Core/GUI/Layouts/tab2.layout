@@ -1,0 +1,85 @@
+FrameWidgetClass rootFrame {
+ position 0 0
+ size 1830 1080
+ hexactpos 1
+ vexactpos 1
+ hexactsize 1
+ vexactsize 1
+ {
+  ImageWidgetClass TabletFrame {
+   ignorepointer 1
+   position 0 0
+   size 1830 1080
+   hexactpos 1
+   vexactpos 1
+   hexactsize 1
+   vexactsize 1
+   imageTexture "GPS_Tablet\gui\textures\tablet.edds"
+   mode blend
+   "src alpha" 1
+   "clamp mode" clamp
+   "stretch mode" fit_w_center
+   {
+    MapWidgetClass TabletMap {
+     position 369.80499 256.00201
+     size 1105.71997 572.49805
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+    }
+   }
+  }
+  FrameWidgetClass buttonFrame {
+   ignorepointer 0
+   position 397.73602 837.70404
+   size 576.56799 48
+   hexactpos 1
+   vexactpos 1
+   hexactsize 1
+   vexactsize 1
+   {
+    ButtonWidgetClass zoomin {
+     position 31.2244 1.83673
+     size 79.22479 46.1633
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+    }
+    ButtonWidgetClass zoomout {
+     position 148.77501 1.83673
+     size 79.22479 46.1633
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+    }
+    ButtonWidgetClass options {
+     position 262.65298 1.83673
+     size 79.22479 46.1633
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+    }
+    ButtonWidgetClass back {
+     position 371.01999 1.83673
+     size 79.22479 46.1633
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+    }
+    ButtonWidgetClass power {
+     position 477.54999 1.83673
+     size 79.22479 46.1633
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+    }
+   }
+  }
+ }
+}
