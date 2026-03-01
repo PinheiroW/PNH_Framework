@@ -1,0 +1,1 @@
+class skaerheim_radioreceiver_01 : skaerheim_radioreceiver_base {};

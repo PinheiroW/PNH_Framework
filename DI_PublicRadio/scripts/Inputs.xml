@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="true"?>
+<modded_inputs>
+	<inputs>
+		<actions>
+			<input name="UA_PUBLIC_RADIO_FREQUENCY_UP" 		loc="Frequency Up"/>
+			<input name="UA_PUBLIC_RADIO_FREQUENCY_DOWN" 	loc="Frequency Down"/>
+			<input name="UA_PUBLIC_RADIO_VOLUME_UP" 		loc="Volume Up"/>
+			<input name="UA_PUBLIC_RADIO_VOLUME_DOWN"		loc="Volume Down"/>
+		</actions>
+		<sorting name="PUBLICRADIO" loc="PUBLIC RADIO">
+			<input name="UA_PUBLIC_RADIO_FREQUENCY_UP"/>
+			<input name="UA_PUBLIC_RADIO_FREQUENCY_DOWN"/>
+			<input name="UA_PUBLIC_RADIO_VOLUME_UP"/>
+			<input name="UA_PUBLIC_RADIO_VOLUME_DOWN"/>
+		</sorting>
+	</inputs>
+	<preset name="KeyboardMouse">
+		<input name="UA_PUBLIC_RADIO_FREQUENCY_UP">
+			<btn name="kRShift">
+				<btn name="kRight"/>
+			</btn>
+		</input>
+		<input name="UA_PUBLIC_RADIO_FREQUENCY_DOWN">
+			<btn name="kRShift">
+				<btn name="kLeft"/>
+			</btn>
+		</input>
+		<input name="UA_PUBLIC_RADIO_VOLUME_UP">
+			<btn name="kRControl">
+				<btn name="kRight"/>
+			</btn>
+		</input>
+		<input name="UA_PUBLIC_RADIO_VOLUME_DOWN">
+			<btn name="kRControl">
+				<btn name="kLeft"/>
+			</btn>
+		</input>
+	</preset>
+</modded_inputs>
