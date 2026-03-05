@@ -1,31 +1,51 @@
-/*
-    MOD: PNH_Core
-    FILE: MissionGameplay.c
-    DESC: Hook do cliente para receber notificações via rede.
-*/
+/**
+ * MOD: PNH_Core
+ * FILE: MissionGameplay.c
+ */
 
 modded class MissionGameplay
 {
-    override void OnMissionStart()
+    // 1. ENSINA O MOTOR DO JOGO A CRIAR O NOSSO MENU
+    override UIScriptedMenu CreateScriptedMenu(int id)
     {
-        super.OnMissionStart();
+        UIScriptedMenu menu = NULL;
+        menu = super.CreateScriptedMenu(id); // Deixa o jogo carregar os menus nativos (Inventário, etc)
         
-        // Regista o canal RPC 9991 para escutar notificações vindas do servidor
-        if (PNH_RpcManager.Get())
+        if (menu) return menu; 
+
+        // Se for o nosso ID 9996, cria a interface do Tablet
+        if (id == PNH_UI_TABLET_OS)
         {
-            PNH_RpcManager.Get().Register(9991, this, "HandlePnhNotification");
+            menu = new PNH_TabletOS;
+            menu.SetID(id);
         }
         
-        PNH_Logger.Log("Client", "MissionGameplay iniciado. Escutando RPC: 9991");
+        return menu;
     }
 
-    // Função que é disparada quando o servidor manda o RPC 9991
-    void HandlePnhNotification(ParamsReadContext ctx, PlayerIdentity sender, Object target)
+    // 2. DETETA A TECLA 'M' PARA ABRIR O TABLET
+    override void OnKeyPress(int key)
     {
-        Param2<string, string> data;
-        if (!ctx.Read(data)) return;
-
-        // Chama o nosso UiManager para mostrar a mensagem
-        PNH_UiManager.Get().ShowNotification(data.param1, data.param2);
+        super.OnKeyPress(key);
+        
+        // Verifica se o jogador apertou 'M' e se não tem o Inventário/Menu aberto
+        if (key == KeyCode.KC_M)
+        {
+            if (!GetGame().GetUIManager().GetMenu())
+            {
+                PlayerBase player = PlayerBase.Cast(GetGame().GetPlayer());
+                if (player)
+                {
+                    PNH_Tablet_Black tablet = PNH_Tablet_Black.Cast(player.GetHumanInventory().GetEntityInHands());
+                    
+                    // Se o tablet estiver nas mãos, com bateria e ligado...
+                    if (tablet && tablet.GetCompEM() && tablet.GetCompEM().IsWorking())
+                    {
+                        // Abre a nossa interface!
+                        GetGame().GetUIManager().EnterScriptedMenu(PNH_UI_TABLET_OS, null);
+                    }
+                }
+            }
+        }
     }
 }
