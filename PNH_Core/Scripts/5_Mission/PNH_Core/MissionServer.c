@@ -71,7 +71,26 @@ modded class MissionServer
             string info = "Admin: OK | Perfis Online: " + m_OnlineProfiles.Count();
             if (player) PNH_PlayerUtils.NotifyPlayer(player, info);
         }
-        // ATUALIZAÇÃO: O comando "!stress" foi removido por segurança de produção.
+        else if (command == "!stress")
+        {
+            if (!player) return;
+            
+            PNH_PlayerUtils.NotifyPlayer(player, "A iniciar Stress Test: 50x M4A1_Green...");
+            
+            vector pos = player.GetPosition();
+            for (int i = 0; i < 50; i++)
+            {
+                // Cria dispersão para as armas não ficarem no mesmo ponto exato
+                vector spawnPos = pos;
+                spawnPos[0] = spawnPos[0] + Math.RandomFloat(-3, 3);
+                spawnPos[2] = spawnPos[2] + Math.RandomFloat(-3, 3);
+                
+                GetGame().CreateObjectEx("M4A1_Green", spawnPos, ECE_PLACE_ON_SURFACE);
+            }
+            
+            PNH_Guard.SimulateAlert(player, "M4A1_Green_Stress");
+            PNH_PlayerUtils.NotifyPlayer(player, "Teste finalizado. Verifique o chao e o Discord.");
+        }
     }
 
     void HandleRadioToggle(ParamsReadContext ctx, PlayerIdentity sender, Object target)

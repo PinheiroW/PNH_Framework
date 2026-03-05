@@ -1,26 +1,16 @@
 /*
     MOD: PNH_Core
     FILE: PNH_DiscordManager.c
-    DESC: Sistema centralizado para envio de mensagens com fila (Queue) para evitar Rate Limit.
+    DESC: Sistema centralizado para envio de mensagens para o Discord.
 */
 
 class PNH_DiscordManager
 {
     private static ref PNH_DiscordManager m_Instance;
-    
-    // Arrays que atuarão como a nossa fila de envios
-    private ref array<string> m_UrlQueue;
-    private ref array<string> m_PayloadQueue;
 
     void PNH_DiscordManager()
     {
-        m_UrlQueue = new array<string>;
-        m_PayloadQueue = new array<string>;
-        
-        // Cria um loop assíncrono que roda a função ProcessQueue a cada 1500ms
-        GetGame().GetCallQueue(CALL_CATEGORY_SYSTEM).CallLater(ProcessQueue, 1500, true);
-        
-        PNH_Logger.Log("Discord", "Gestor de Discord Inicializado (Com Fila Ativa).");
+        PNH_Logger.Log("Discord", "Gestor de Discord Inicializado.");
     }
 
     static PNH_DiscordManager Get()
@@ -33,10 +23,12 @@ class PNH_DiscordManager
     }
 
     // =============================================================
-    // FUNÇÃO PRINCIPAL DE ENVIO (AGORA VAI PARA A FILA)
+    // FUNÇÃO PRINCIPAL DE ENVIO
     // =============================================================
     /**
-     * @brief Adiciona mensagem na fila para o Discord.
+     * @brief Envia mensagem para o Discord.
+     * @param message: O texto da mensagem.
+     * @param type: O tipo de canal ("System", "Admin", "Chat", "Login", "Kill", "Mission").
      */
     void Send(string message, string type = "System")
     {
@@ -51,39 +43,17 @@ class PNH_DiscordManager
         else if (type == "Mission") url = settings.MissionsWebhookURL;
         else                        url = settings.SystemWebhookURL; // Fallback
 
+        // Se não tiver URL configurada, cancela (evita erros no log)
         if (url == "") return;
 
         // 2. Prepara o JSON para o Discord
+        // Nota: O Discord exige um formato JSON específico {"content": "mensagem"}
         string json = "{\"content\": \"" + message + "\"}";
 
-        // 3. Adiciona à fila em vez de enviar instantaneamente
-        m_UrlQueue.Insert(url);
-        m_PayloadQueue.Insert(json);
-    }
-    
-    // =============================================================
-    // PROCESSADOR DA FILA
-    // =============================================================
-    /**
-     * @brief Processa um item da fila a cada ciclo (chamado pelo CallLater).
-     */
-    void ProcessQueue()
-    {
-        if (m_UrlQueue.Count() > 0)
-        {
-            // Pega o primeiro da fila
-            string url = m_UrlQueue.Get(0);
-            string json = m_PayloadQueue.Get(0);
-
-            // Envia o Request
-            RestContext ctx = GetRestApi().GetRestContext(url);
-            ctx.SetHeader("application/json");
-            ctx.POST(null, "", json);
-
-            // Remove o item já processado da fila para o próximo assumir o índice 0
-            m_UrlQueue.Remove(0);
-            m_PayloadQueue.Remove(0);
-        }
+        // 3. Envia o Request
+        RestContext ctx = GetRestApi().GetRestContext(url);
+        ctx.SetHeader("application/json");
+        ctx.POST(null, "", json);
     }
     
     // Atalho estático para facilitar o uso em outros mods

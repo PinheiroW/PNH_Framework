@@ -39,8 +39,7 @@ class PNH_RpcManager
 
         if (instance && funcName != "")
         {
-            // Revertido para CallFunctionParams: Forma correta e exigida pelo motor 
-            // para passar mais de 2 argumentos dinamicamente.
+            // Correção de Tipo Explícito para evitar erro de compilação
             Param3<ParamsReadContext, PlayerIdentity, Object> args = new Param3<ParamsReadContext, PlayerIdentity, Object>(ctx, sender, target);
             GetGame().GameScript.CallFunctionParams(instance, funcName, null, args);
         }

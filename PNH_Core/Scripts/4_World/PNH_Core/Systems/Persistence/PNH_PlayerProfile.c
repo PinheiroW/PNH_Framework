@@ -23,12 +23,11 @@ class PNH_PlayerProfile
         UpdateLoginDate();
     }
 
-    // Atualiza a data para o momento atual (CORRIGIDO)
+    // Atualiza a data para o momento atual
     void UpdateLoginDate()
     {
-        int year, month, day, hour, minute, second;
-        // Agora 'second' recebe os segundos, impedindo a sobrescrita do 'day'
-        GetHourMinuteSecondUTC(hour, minute, second);
+        int year, month, day, hour, minute;
+        GetHourMinuteSecondUTC(hour, minute, day);
         GetYearMonthDayUTC(year, month, day);
         LastLoginDate = "" + day + "/" + month + "/" + year + " " + hour + ":" + minute;
     }
